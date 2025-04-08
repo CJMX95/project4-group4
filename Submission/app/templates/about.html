@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Used Car Price Prediction</title>
+    <!-- Bootstrap CSS from Lux theme -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css">
+    <style>
+        /* Ensure footer stays at the bottom */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content {
+            flex: 1;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            border-top: 1px solid #ddd;
+        }
+        .team-member {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .team-member:hover {
+            transform: scale(1.05);
+        }
+        .team-member h3 {
+            color: #007bff;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .team-member .title {
+            font-style: italic;
+            color: #555;
+        }
+        .team-member a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .team-member a:hover {
+            text-decoration: underline;
+        }
+        .team-member img {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 4px solid #007bff;
+        }
+        .row {
+            margin-bottom: 30px;
+        }
+        .footer {
+            background-color: #004085;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            border-top: 2px solid #003366; /* Thin border */
+            font-size: 0.8em; /* Smaller font for footer */
+        }
+        /* Adjust navbar height */
+        .nav-link {
+            color: #f8f9fa !important;
+            font-size: 0.9em;  /* Change this value to adjust the font size */
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #ffc107 !important;
+        }
+
+        .navbar-dark .navbar-nav .nav-link.active {
+            color: #ffc107 !important;
+        }
+        .navbar .navbar-nav .nav-item .nav-link {
+                font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+<!-- ✅ NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="/about">
+            <i class="fas fa-car"></i> Used Cars Price Prediction
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/model">Predict Prices</a></li>
+                <li class="nav-item"><a class="nav-link" href="/tableau1">Tableau Dashboard1</a></li>
+                <li class="nav-item"><a class="nav-link" href="/tableau2">Tableau Dashboard2</a></li>
+                <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="/works_cited">Works Cited</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <!-- ✅ MAIN CONTENT -->
+    <div class="container content mt-4">
+        <section class="about-us">
+            <h2 class="text-center mb-4">Meet Our Team</h2>
+
+            <!-- First Row: 3 Team Members -->
+            <div class="row">
+                <!-- Team Member 1 -->
+                <div class="col-md-4 text-center">
+                    <div class="team-member">
+                        <img src="static\images\1682956764879.jpeg" alt="Neelam Prasad">
+                        <h3>Neelam Prasad</h3>
+                        <p class="title">Data Science Lead</p>
+                        <p>Prasad is an experienced data scientist with a passion for machine learning and automotive analytics.</p>
+                        <p><a href="https://github.com/Neelam057/" target="_blank">GitHub</a></p>
+                        <p><a href="https://www.linkedin.com/in/neelam-prasad-6b8a54240/" target="_blank">LinkedIn</a></p>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="col-md-4 text-center">
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Thaissa Champagne">
+                        <h3>Thaissa Champagne</h3>
+                        <p class="title">Data Analyst</p>
+                        <p>Thaissa is a skilled data analyst specializing in web development and backend integration.</p>
+                        <p>Email: thaissa.champagne@example.com</p>
+                        <p><a href="https://www.linkedin.com/in/thaissachampagne" target="_blank">LinkedIn</a></p>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="col-md-4 text-center">
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="Gina Butler">
+                        <h3>Gina Butler</h3>
+                        <p class="title">Tableau Designer</p>
+                        <p>Gina is a tableau designer focused on creating intuitive and user-friendly interfaces.</p>
+                        <p>Email: gina.butler@example.com</p>
+                        <p><a href="https://www.linkedin.com/in/ginabutler" target="_blank">LinkedIn</a></p>
+                    </div>
+                </div>
+            </div> <!-- End of First Row -->
+
+            <!-- Second Row: 2 Team Members -->
+            <div class="row">
+                <!-- Team Member 4 -->
+                <div class="col-md-6 text-center">
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Chase Mueller">
+                        <h3>Chase Mueller</h3>
+                        <p class="title">Data Analyst</p>
+                        <p>Chase is a dedicated data analyst with expertise in extracting insights from complex datasets.</p>
+                        <p>Email: chase.mueller@example.com</p>
+                        <p><a href="https://www.linkedin.com/in/chasemueller" target="_blank">LinkedIn</a></p>
+                    </div>
+                </div>
+
+                <!-- Team Member 5 -->
+                <div class="col-md-6 text-center">
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/women/3.jpg" alt="Kriti Khatri">
+                        <h3>Kriti Khatri</h3>
+                        <p class="title">Project Manager</p>
+                        <p>Kriti is an organized and efficient project manager, ensuring smooth project execution.</p>
+                        <p>Email: kriti.khatri@example.com</p>
+                        <p><a href="https://www.linkedin.com/in/kritikhatri" target="_blank">LinkedIn</a></p>
+                    </div>
+                </div>
+            </div> <!-- End of Second Row -->
+        </section>
+    </div>
+
+    <!-- ✅ FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2024 Used Car Price Prediction. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

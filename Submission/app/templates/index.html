@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Used Car Price Prediction</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f0f8ff; /* Light background color */
+        }
+        .navbar {
+            margin-bottom: 20px;
+        }
+        .card {
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #004085; /* Dark blue footer */
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- D3 and Plotly -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-5.0.0.min.js"></script> <!-- Replace with the actual latest version -->
+
+    <!-- JS -->
+    <script type="text/javascript" src="static/js/logic.js"></script>
+</head>
+
+<body>
+    <!-- Navbar code on each page -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-car"></i> Used Car Price Prediction
+            </a>
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="landing.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html">Predict Prices</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="works_cited.html">Works Cited</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Machine Learning Application -->
+    <div class="text-center">
+        <br>
+        <p style="font-size:30px">Used Car Price Prediction</p>
+        <hr>
+        <div class="container">
+            <div class="card border-primary mb-3 text-center">
+                <div class="card-header text-center"><h5><strong>Enter car details to predict its price.</strong></h5></div>
+                <div class="card-body">
+                    <form id="prediction-form" onsubmit="return false;">
+                        <div class="row justify-content-center">
+                            <!-- Car Model -->
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="brand">Brand</label>
+                                    <select id="brand" name="brand" class="form-control" required>
+                                        <option value="Ford">Ford</option>
+                                        <option value="BMW">BMW</option>
+                                        <option value="Mercedes-Benz">Mercedes-Benz</option>
+                                        <option value="Chevrolet">Chevrolet</option>
+                                        <option value="Porsche">Porsche</option>
+                                        <option value="Audi" selected>Audi</option>
+                                        <option value="Toyota">Toyota</option>
+                                        <option value="Lexus">Lexus</option>
+                                        <option value="Jeep">Jeep</option>
+                                        <option value="Land">Land</option>
+                                        <option value="Nissan">Nissan</option>
+                                        <option value="Cadillac">Cadillac</option>
+                                        <option value="RAM">RAM</option>
+                                        <option value="GMC">GMC</option>
+                                        <option value="Dodge">Dodge</option>
+                                        <option value="Tesla">Tesla</option>
+                                        <option value="Kia">Kia</option>
+                                        <option value="Hyundai">Hyundai</option>
+                                        <option value="Subaru">Subaru</option>
+                                        <option value="Acura">Acura</option>
+                                        <option value="Mazda">Mazda</option>
+                                        <option value="Honda">Honda</option>
+                                        <option value="Volkswagen">Volkswagen</option>
+                                        <option value="INFINITI">INFINITI</option>
+                                        <option value="Lincoln">Lincoln</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Car Year -->
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="model_year">Year</label>
+                                    <input type="number" class="form-control" id="model_year" name="model_year" min="1980" max="2025" value="2018" required>
+                                </div>
+                            </div>
+
+                            <!-- Car Age (Dynamic) -->
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="car_age">Car Age</label>
+                                    <input type="number" class="form-control" id="car_age" name="car_age" disabled>
+                                </div>
+                            </div>
+
+                            <!-- Car Mileage -->
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="mileage">Mileage (miles)</label>
+                                    <input type="number" class="form-control" id="mileage" name="mileage" value="50000" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <!-- Fuel Type, Transmission, Accident, and Clean Title all in one row -->
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="fuel">Fuel Type</label>
+                                    <select id="fuel" class="form-control">
+                                        <option value="diesel">Diesel</option>
+                                        <option value="gasoline" selected>Gasoline</option>
+                                        <option value="electric">Electric</option>
+                                        <option value="hybrid">Hybrid</option>
+                                        <option value="E85 Flex Fuel">E85 Flex Fuel</option>
+                                        <option value="Plug-In Hybrid">Plug-In Hybrid</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="transmission">Transmission</label>
+                                    <select id="transmission" class="form-control">
+                                        <option value="manual">Manual</option>
+                                        <option value="automatic" selected>Automatic</option>
+                                        <option value="Dual-Shift">Dual-Shift</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="accident">Accident</label>
+                                    <select id="accident" name="accident" class="form-control">
+                                        <option value="No" selected>No</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="Unknown">Unknown</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="clean_title">Clean Title</label>
+                                    <select id="clean_title" name="clean_title" class="form-control">
+                                        <option value="Yes" selected>Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="exterior_color">Exterior Color</label>
+                                    <select id="exterior_color" name="exterior_color" class="form-control">
+                                        <option value="Black">Black</option>
+                                        <option value="White">White</option>
+                                        <option value="Gray">Gray</option>
+                                        <option value="Silver">Silver</option>
+                                        <option value="Blue">Blue</option>
+                                        <option value="Red">Red</option>
+                                        <option value="Green">Green</option>
+                                        <option value="Brown">Brown</option>
+                                        <option value="Gold">Gold</option>
+                                        <option value="Beige">Beige</option>
+                                        <option value="Orange">Orange</option>
+                                        <option value="Yellow">Yellow</option>
+                                        <option value="Purple">Purple</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-md-2 text-center">
+                                <button type="button" id="predict-btn" class="btn btn-primary">Get Prediction</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr style="color:lightgray; border-width: 3px;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <h2 id="prediction-result"></h2>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Used Car Deals</p>
+    </footer>
+</body>
+</html>
