@@ -18,7 +18,7 @@ def landing():
 
 @app.route("/model")
 def model():
-    return render_template("index.html")
+    return render_template("model.html")
 
 @app.route("/tableau1")
 def tableau1():
