@@ -1,11 +1,11 @@
 from flask import Flask, jsonify, render_template, request
 from modelHelper import ModelHelper
 import numpy as np
-from flask_cors import CORS
+
 
 # Flask Setup
 app = Flask(__name__)
-CORS(app)  # Enables cross-origin requests
+
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 # Initialize the model helper
