@@ -109,7 +109,7 @@ def make_predictions():
 
     # Convert from log price to actual price
     predicted_price = np.exp(predicted_price_log[0])
-
+    predicted_price = float(predicted_price)
     return jsonify({'prediction': predicted_price})
 
 
