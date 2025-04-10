@@ -1,23 +1,17 @@
 from flask import Flask, jsonify, render_template, request
 from modelHelper import ModelHelper
-import logging
+import numpy as np
 from flask_cors import CORS
 
 # Flask Setup
 app = Flask(__name__)
+CORS(app)  # Enables cross-origin requests
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 # Initialize the model helper
 modelHelper = ModelHelper()
 
-# Configure logging
-logging.basicConfig(level=logging.DEBUG)
-
-# Helper Function for Encoding
-def one_hot_encode_feature(value, valid_options):
-    """ Helper function to one-hot encode categorical features """
-    return {f"{feature}_{value}": int(value == feature) for feature in valid_options}
-
+# Routes for HTML pages
 @app.route('/')
 def landing():
     return render_template('landing.html')
@@ -42,99 +36,82 @@ def about():
 def works_cited():
     return render_template("works_cited.html") 
 
-@app.route('/predictions', methods=['POST'])
-def get_prediction():
-    try:
-        # Get the data from the incoming request (JSON format)
-        data = request.get_json()
+# Define all possible categories (these should match the categories used in training)
+brands = [
+    "Acura", "Audi", "BMW", "Cadillac", "Chevrolet", "Dodge", "Ford", "GMC", "Honda",
+    "Hyundai", "INFINITI", "Jeep", "Kia", "Land", "Lexus", "Lincoln", "Mazda", "Mercedes_Benz",
+    "Nissan", "Other", "Porsche", "RAM", "Subaru", "Tesla", "Toyota", "Volkswagen"
+]
 
-        # Extract relevant features from the data (making sure all expected features are present)
-        clean_title = data.get('clean_title', 0)
-        model_year = data.get('model_year', 0)
-        mileage = data.get('mileage', 0)
-        car_age = data.get('car_age', 0)
+fuel_types = [
+    "Diesel", "E85_Flex_Fuel", "Electric", "Gasoline", "Hybrid", "Plug_In_Hybrid", "Unknown"
+]
 
-        # Extract brand features (default to 0 if not provided)
-        brand_Acura = data.get('brand_Acura', 0)
-        brand_Audi = data.get('brand_Audi', 0)
-        brand_BMW = data.get('brand_BMW', 0)
-        brand_Cadillac = data.get('brand_Cadillac', 0)
-        brand_Chevrolet = data.get('brand_Chevrolet', 0)
-        brand_Dodge = data.get('brand_Dodge', 0)
-        brand_Ford = data.get('brand_Ford', 0)
-        brand_GMC = data.get('brand_GMC', 0)
-        brand_Honda = data.get('brand_Honda', 0)
-        brand_Hyundai = data.get('brand_Hyundai', 0)
-        brand_INFINITI = data.get('brand_INFINITI', 0)
-        brand_Jeep = data.get('brand_Jeep', 0)
-        brand_Kia = data.get('brand_Kia', 0)
-        brand_Land = data.get('brand_Land', 0)
-        brand_Lexus = data.get('brand_Lexus', 0)
-        brand_Lincoln = data.get('brand_Lincoln', 0)
-        brand_Mazda = data.get('brand_Mazda', 0)
-        brand_Mercedes_Benz = data.get('brand_Mercedes_Benz', 0)
-        brand_Nissan = data.get('brand_Nissan', 0)
-        brand_Other = data.get('brand_Other', 0)
-        brand_Porsche = data.get('brand_Porsche', 0)
-        brand_RAM = data.get('brand_RAM', 0)
-        brand_Subaru = data.get('brand_Subaru', 0)
-        brand_Tesla = data.get('brand_Tesla', 0)
-        brand_Toyota = data.get('brand_Toyota', 0)
-        brand_Volkswagen = data.get('brand_Volkswagen', 0)
+transmission_categories = ["Automatic", "Dual_Shift", "Manual", "Other"]
 
-        # Extract fuel type features
-        fuel_type_Diesel = data.get('fuel_type_Diesel', 0)
-        fuel_type_E85_Flex_Fuel = data.get('fuel_type_E85_Flex_Fuel', 0)
-        fuel_type_Electric = data.get('fuel_type_Electric', 0)
-        fuel_type_Gasoline = data.get('fuel_type_Gasoline', 0)
-        fuel_type_Hybrid = data.get('fuel_type_Hybrid', 0)
-        fuel_type_Plug_In_Hybrid = data.get('fuel_type_Plug_In_Hybrid', 0)
-        fuel_type_Unknown = data.get('fuel_type_Unknown', 0)
+exterior_colors = [
+    "Black", "Blue", "Gray", "Green", "Other", "Red", "Silver", "White"
+]
 
-        # Extract transmission category features
-        transmission_category_Automatic = data.get('transmission_category_Automatic', 0)
-        transmission_category_Dual_Shift = data.get('transmission_category_Dual_Shift', 0)
-        transmission_category_Manual = data.get('transmission_category_Manual', 0)
-        transmission_category_Other = data.get('transmission_category_Other', 0)
+@app.route('/makePredictions', methods=['POST'])
+def make_predictions():
+    data = request.json['data']
+    # Extract numerical features
+    model_year = float(data['model_year'])
+    mileage = float(data['mileage'])
+    car_age = data['car_age']  # Car age should be passed as well
 
-        # Extract exterior color features
-        exterior_color_category_Black = data.get('exterior_color_category_Black', 0)
-        exterior_color_category_Blue = data.get('exterior_color_category_Blue', 0)
-        exterior_color_category_Gray = data.get('exterior_color_category_Gray', 0)
-        exterior_color_category_Green = data.get('exterior_color_category_Green', 0)
-        exterior_color_category_Other = data.get('exterior_color_category_Other', 0)
-        exterior_color_category_Red = data.get('exterior_color_category_Red', 0)
-        exterior_color_category_Silver = data.get('exterior_color_category_Silver', 0)
-        exterior_color_category_White = data.get('exterior_color_category_White', 0)
+    # One-hot encode categorical variables
+    brand_features = {f"brand_{b}": 0 for b in brands}
+    fuel_features = {f"fuel_type_{f}": 0 for f in fuel_types}
+    transmission_features = {f"transmission_category_{t}": 0 for t in transmission_categories}
+    color_features = {f"exterior_color_category_{c}": 0 for c in exterior_colors}
 
-        # Extract accident features
-        accident_Yes = data.get('accident_Yes', 0)
-        accident_No = data.get('accident_No', 0)
-        accident_Unknown = data.get('accident_Unknown', 0)
+    # Set the selected category to 1
+    if f"brand_{data['brand']}" in brand_features:
+        brand_features[f"brand_{data['brand']}"] = 1
 
-        # Use ModelHelper to get prediction
-        predicted_price = modelHelper.predictions(
-            clean_title, model_year, mileage, car_age, brand_Acura, brand_Audi,
-            brand_BMW, brand_Cadillac, brand_Chevrolet, brand_Dodge, brand_Ford,
-            brand_GMC, brand_Honda, brand_Hyundai, brand_INFINITI, brand_Jeep,
-            brand_Kia, brand_Land, brand_Lexus, brand_Lincoln, brand_Mazda,
-            brand_Mercedes_Benz, brand_Nissan, brand_Other, brand_Porsche, brand_RAM,
-            brand_Subaru, brand_Tesla, brand_Toyota, brand_Volkswagen, fuel_type_Diesel,
-            fuel_type_E85_Flex_Fuel, fuel_type_Electric, fuel_type_Gasoline, fuel_type_Hybrid,
-            fuel_type_Plug_In_Hybrid, fuel_type_Unknown, transmission_category_Automatic,
-            transmission_category_Dual_Shift, transmission_category_Manual,
-            transmission_category_Other, exterior_color_category_Black,
-            exterior_color_category_Blue, exterior_color_category_Gray,
-            exterior_color_category_Green, exterior_color_category_Other,
-            exterior_color_category_Red, exterior_color_category_Silver,
-            exterior_color_category_White, accident_Yes, accident_No, accident_Unknown
-        )
+    if f"fuel_type_{data['fuel_type']}" in fuel_features:
+        fuel_features[f"fuel_type_{data['fuel_type']}"] = 1
 
-        # Return the result in the response
-        return jsonify({'ok': True, 'predicted_price': predicted_price})
+    if f"transmission_category_{data['transmission_category']}" in transmission_features:
+        transmission_features[f"transmission_category_{data['transmission_category']}"] = 1
 
-    except Exception as e:
-        return jsonify({'ok': False, 'message': str(e)}), 500
+    if f"exterior_color_category_{data['exterior_color_category']}" in color_features:
+        color_features[f"exterior_color_category_{data['exterior_color_category']}"] = 1
+
+    # Binary encoding for accident
+    accident_yes = 1 if data['accident'].lower() == "yes" else 0
+    accident_no = 1 if data['accident'].lower() == "no" else 0
+    accident_unknown = 1 if data['accident'].lower() not in ["yes", "no"] else 0
+
+    # Clean title encoding
+    clean_title = 1 if str(data['clean_title']).strip().lower() == 'yes' else 0
+
+    # Combine all features into a list, matching the model’s feature names
+    feature_vector = [
+        model_year, mileage, car_age,  # Numerical features
+        *brand_features.values(),
+        *fuel_features.values(),
+        *transmission_features.values(),
+        *color_features.values(),
+        accident_yes, accident_no, accident_unknown,  # Accident binary encoding (order matters)
+        clean_title  # Clean title encoding
+    ]
+
+    # Ensure the feature vector length matches the model's expected input shape
+    expected_length = 52  # Based on the model's expected input feature count
+    if len(feature_vector) != expected_length:
+        return jsonify({'error': f"Expected {expected_length} features, but got {len(feature_vector)}."})
+
+    # Unpack the feature_vector and pass it as individual arguments to predict()
+    predicted_price_log = modelHelper.predict(*feature_vector)
+
+    # Convert from log price to actual price
+    predicted_price = np.exp(predicted_price_log[0])
+
+    return jsonify({'prediction': predicted_price})
+
 
 @app.after_request
 def add_header(r):

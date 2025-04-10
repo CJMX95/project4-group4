@@ -9,49 +9,56 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
-            background-color: #f0f8ff; /* Light background color */
+         body {
+            background-color: #e7f1ff;
+            margin: 0;
+            font-family: Arial, sans-serif;
         }
         .navbar {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            padding-top: 2px;
+            padding-bottom: 2px;
         }
-        .card {
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #ffc107;
         }
-        footer {
-            text-align: center;
-            padding: 20px 0;
-            background-color: #004085; /* Dark blue footer */
-            color: white;
-            position: relative;
-            bottom: 0;
-            width: 100%;
+        .footer {
+        background-color: #004085;
+        color: white;
+        text-align: center;
+        padding: 10px 20px;
+        border-top: 2px solid #003366;
+        font-size: 0.8em;
         }
     </style>
-    <!-- JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- D3 and Plotly -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdn.plot.ly/plotly-5.0.0.min.js"></script> <!-- Replace with the actual latest version -->
-
-    <!-- JS -->
-    <script type="text/javascript" src="static/js/logic.js"></script>
+     <!-- JQuery -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <!-- D3 and Plotly -->
+     <script src="https://d3js.org/d3.v7.min.js"></script>
+     <script src="https://cdn.plot.ly/plotly-5.0.0.min.js"></script> <!-- Replace with the actual latest version -->
+ 
+     <!-- JS -->
+     <script type="text/javascript" src="static/js/logic.js"></script>
 </head>
-
 <body>
-    <!-- Navbar code on each page -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <i class="fas fa-car"></i> Used Car Price Prediction
+        <div class="container">
+            <a class="navbar-brand" href="/model">
+                <i class="fas fa-car"></i> Used Cars Price Prediction
             </a>
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link" href="landing.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="index.html">Predict Prices</a></li>
-                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="works_cited.html">Works Cited</a></li>
-            </ul>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/index">Predict Prices</a></li>
+                    <li class="nav-item"><a class="nav-link " href="/tableau1">Tableau Dashboard1</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/tableau2">Tableau Dashboard2</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/works_cited">Works Cited</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -113,7 +120,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="car_age">Car Age</label>
-                                    <input type="number" class="form-control" id="car_age" name="car_age" disabled>
+                                    <input type="number" class="form-control" id="car_age" name="car_age">
                                 </div>
                             </div>
 
@@ -214,8 +221,8 @@
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2025 Used Car Deals</p>
+    <footer class="footer">
+        <p>&copy; 2025 Used Car Deals. All rights reserved.</p>
     </footer>
 </body>
 </html>

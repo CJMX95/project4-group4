@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau Dashboard - Used Car Price Prediction</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #e7f1ff;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            margin-bottom: 30px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #ffc107;
+        }
+        footer {
+            text-align: center;
+            padding: 5px 5px;
+            background-color: #004085;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/tableau1">
+                <i class="fas fa-car"></i> Used Cars Price Prediction
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/model">Predict Prices</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/tableau1">Tableau Dashboard1</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/tableau2">Tableau Dashboard2</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/works_cited">Works Cited</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="text-center text-primary">Used Car Price Prediction Tableau Dashboard</h1>
+
+        <!-- Tableau Dashboard 2 Embed -->
+        <div class='tableauPlaceholder' id='viz1744252722008' style='position: relative'>
+            <noscript>
+                <a href='#'>
+                    <img alt=' ' src='https://public.tableau.com/static/images/Us/UsedCarPriceTableauDashboard/Dashboard2/1_rss.png' style='border: none' />
+                </a>
+            </noscript>
+            <object class='tableauViz' style='display:none;'>
+                <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                <param name='embed_code_version' value='3' />
+                <param name='site_root' value='' />
+                <param name='name' value='UsedCarPriceTableauDashboard/Dashboard2' />
+                <param name='tabs' value='no' />
+                <param name='toolbar' value='yes' />
+                <param name='static_image' value='https://public.tableau.com/static/images/Us/UsedCarPriceTableauDashboard/Dashboard2/1.png' />
+                <param name='animate_transition' value='yes' />
+                <param name='display_static_image' value='yes' />
+                <param name='display_spinner' value='yes' />
+                <param name='display_overlay' value='yes' />
+                <param name='display_count' value='yes' />
+                <param name='language' value='en-US' />
+            </object>
+        </div>
+        <script type='text/javascript'>
+            var divElement = document.getElementById('viz1744252722008');
+            var vizElement = divElement.getElementsByTagName('object')[0];
+
+            function resizeViz() {
+                if (divElement.offsetWidth > 800) {
+                    vizElement.style.width = '100%';
+                    vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px'; // Adjust the height based on the width
+                } else if (divElement.offsetWidth > 500) {
+                    vizElement.style.width = '100%';
+                    vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px'; // Adjust the height based on the width
+                } else {
+                    vizElement.style.width = '100%';
+                    vizElement.style.height = '1500px'; // You can set a fixed height for smaller screens
+                }
+            }
+
+            window.addEventListener('resize', resizeViz); // Re-run on window resize
+            resizeViz(); // Call the function once to initialize
+
+            var scriptElement = document.createElement('script');
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        </script>
+
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Used Car Deals. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
