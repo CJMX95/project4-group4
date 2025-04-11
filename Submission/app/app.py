@@ -36,6 +36,10 @@ def about():
 def works_cited():
     return render_template("works_cited.html") 
 
+@app.route("/report")  
+def report():
+    return render_template("report.html") 
+
 # Define all possible categories (these should match the categories used in training)
 brands = [
     "Acura", "Audi", "BMW", "Cadillac", "Chevrolet", "Dodge", "Ford", "GMC", "Honda",
